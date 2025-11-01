@@ -31,16 +31,21 @@ const AI_PROVIDERS = {
         enabled: !!process.env.GEMINI_API_KEY, maxTokens: 16000
     },
     huggingface: {
-        name: 'Hugging Face (Router)', apiKey: process.env.HUGGING_FACE_API_KEY,
+        name: 'Hugging Face (Router)', 
+        apiKey: process.env.HUGGING_FACE_API_KEY,
         endpoint: 'https://router.huggingface.co/v1/chat/completions',
-        model: 'mistralai/Mistral-7B-Instruct-v0.2',
-        enabled: !!process.env.HUGGING_FACE_API_KEY, maxTokens: 4096
+        model: 'mistralai/Mistral-7B-Instruct-v0.1', // <-- FIX: Changed to v0.1
+        enabled: !!process.env.HUGGING_FACE_API_KEY, 
+        maxTokens: 4096
     },
     openrouter: {
-        name: 'OpenRouter', apiKey: process.env.OPENROUTER_API_KEY,
+        name: 'OpenRouter', 
+        apiKey: process.env.OPENROUTER_API_KEY,
         endpoint: 'https://openrouter.ai/api/v1/chat/completions',
-        model: 'mistralai/mistral-7b-instruct:free',
-        enabled: !!process.env.OPENROUTER_API_KEY, maxTokens: 4096
+        // vvv FIX: Switched to a less congested free model vvv
+        model: 'google/gemma-7b-it:free', 
+        enabled: !!process.env.OPENROUTER_API_KEY, 
+        maxTokens: 4096
     }
 };
 
@@ -285,8 +290,9 @@ function buildIntelligentPrompt(content, fileType, documentType) {
   1. IGNORE JUNK: Ignore junk metadata such as "about:blank", "--- PAGE x ---", timestamps, or empty lines.
   2. USE PROVIDED JSON STRUCTURE: Use exactly {"documentType":"invoice","confidence":0.95,"sections":{"header":"...","body":"...","footer":"..."},"metadata":{"title":"Invoice"}}.
   3. CLEAN TEXT: Remove broken characters, stray quotes, and extra commas.
-  4. SHOW ₹: All prices, rates, and totals must include the currency entity &#8377; (Rupee symbol).
-  5. PRESERVE LISTS: Format item lists (like 'STARTER : Kung Pao Chicken') as <p> tags with <strong> for the key. DO NOT delete them.
+  4. NEVER CHANGE % AND ₹ ( PERCENTAGE AND RUPEE SYMBOL)
+  5. SHOW ₹: All prices, rates, and totals must include the currency entity &#8377; (Rupee symbol).
+  6. PRESERVE LISTS: Format item lists (like 'STARTER : Kung Pao Chicken') as <p> tags with <strong> for the key. DO NOT delete them.
   
   STRUCTURE:
   
