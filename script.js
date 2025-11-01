@@ -12,7 +12,7 @@
 
 // --- Constants and Global Variables ---
 const BACKEND_CONFIG = {
-    apiURL: 'https://ai-formatter.netlify.app/.netlify/functions/server', // Base URL
+    apiURL: '', // Base URL
     maxTokens: 16000,
     temperature: 0.3,
     defaultProvider: 'gemini'
@@ -188,7 +188,7 @@ const SecureAI = {
                 console.log(`Trying AI provider: ${provider}`);
                 if (onProgress) onProgress(`Connecting to AI (${provider})...`, 20);
                 
-                const response = await fetch(`${BACKEND_CONFIG.apiURL}/api/format`, {
+                const response = await fetch(`/api/format`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -275,7 +275,7 @@ const SecureAI = {
 async function testBackendConnection() {
     try {
         showToast(`Testing connection...`, 'info', 1500);
-        const response = await fetch(`${BACKEND_CONFIG.apiURL}/api/health`, { method: 'GET' });
+        const response = await fetch(`/api/health`, { method: 'GET' });
         const data = await response.json();
         if (response.ok && data.status === 'ok') {
              console.log(`✅ Backend test OK: ${data.message}`);
@@ -925,7 +925,7 @@ async function downloadAsPdf() {
             return;
         }
 
-        const response = await fetch(`${BACKEND_CONFIG.apiURL}/api/generate-pdf`, { // <-- Uses main endpoint
+        const response = await fetch(`/api/generate-pdf`,{ // <-- Uses main endpoint
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ htmlContent: fullHTML })
