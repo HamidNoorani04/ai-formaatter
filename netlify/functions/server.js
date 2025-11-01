@@ -10,7 +10,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const puppeteer = require('puppeteer');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const app = express();
 const PORT = process.env.PORT || 3001;
