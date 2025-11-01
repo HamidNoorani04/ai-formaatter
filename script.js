@@ -12,7 +12,7 @@
 
 // --- Constants and Global Variables ---
 const BACKEND_CONFIG = {
-    apiURL: 'http://localhost:3001', // Base URL
+    apiURL: 'https://ai-formatter.netlify.app/.netlify/functions/server', // Base URL
     maxTokens: 16000,
     temperature: 0.3,
     defaultProvider: 'gemini'
