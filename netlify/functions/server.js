@@ -290,7 +290,7 @@ function buildIntelligentPrompt(content, fileType, documentType) {
   1. IGNORE JUNK: Ignore junk metadata such as "about:blank", "--- PAGE x ---", timestamps, or empty lines.
   2. USE PROVIDED JSON STRUCTURE: Use exactly {"documentType":"invoice","confidence":0.95,"sections":{"header":"...","body":"...","footer":"..."},"metadata":{"title":"Invoice"}}.
   3. CLEAN TEXT: Remove broken characters, stray quotes, and extra commas.
-  4. NEVER CHANGE % AND ₹ ( PERCENTAGE AND RUPEE SYMBOL)
+  4. NEVER CHANGE OR REPLACE % (PERCENTAGE SYMBOL).
   5. SHOW ₹: All prices, rates, and totals must include the currency entity &#8377; (Rupee symbol).
   6. PRESERVE LISTS: Format item lists (like 'STARTER : Kung Pao Chicken') as <p> tags with <strong> for the key. DO NOT delete them.
   
