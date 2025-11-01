@@ -1,0 +1,9 @@
+[build]
+  command = "npm install"
+  functions = "netlify/functions/"
+  publish = "." # The folder with your index.html
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
